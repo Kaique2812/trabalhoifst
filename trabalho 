@@ -1,0 +1,17 @@
+module LFSR32(
+  input clk,
+  output reg [31:0] num
+);
+
+  // Inicialização do valor do LFSR
+  initial begin
+    num = 32'hFFFF_FFFF; // Um valor não-zero para começar (ou 32'd15)
+  end
+
+  // Calcula o feedback e desloca os bits
+  always_ff @(posedge clk) begin
+    // Desloca todos os bits para a direita
+    num <= {num[30:0], num[31] ^ num[21]}; // Atualize o feedback conforme o polinômio
+  end
+
+endmodule
